@@ -16,17 +16,9 @@ class Application < Sinatra::Base
 
   get '/albums' do
     repo = AlbumRepository.new
-    result = repo.all
-    text = ""
-    i = 1
-    result.each do |object|
-      text += "#{object.title} #{object.release_year} #{object.artist_id}"
-      if i < result.length
-        text += "\n"
-      end
-      i += 1
-    end
-    return text
+    @result = repo.all
+    
+    return erb(:albumslist)
   end
 
   post '/albums' do
@@ -41,17 +33,9 @@ class Application < Sinatra::Base
 
   get "/artists" do
     repo = ArtistRepository.new
-    result = repo.all
-    text = ""
-    i = 1
-    result.each do |object|
-      text += "#{object.name} #{object.genre}"
-      if i < result.length
-        text += "\n"
-      end
-      i += 1
-    end
-    return text
+    @result = repo.all
+    
+    return erb(:artistslist)
   end
 
   post "/artists" do
@@ -61,5 +45,22 @@ class Application < Sinatra::Base
     artist.genre = params[:genre]
 
     repo.create(artist)
+  end
+
+  get "/albums/:id" do
+    repo = AlbumRepository.new
+    @album = repo.find(params[:id])
+
+    repo = ArtistRepository.new
+    @artist = repo.find(@album.artist_id)
+
+    return erb(:album)
+  end
+
+  get "/artists/:id" do
+    repo = ArtistRepository.new
+    @artist = repo.find(params[:id])
+
+    return erb(:artist)
   end
 end

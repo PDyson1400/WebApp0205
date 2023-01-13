@@ -1,0 +1,18 @@
+<html>
+  <head></head>
+  <body>
+    <h1>Artists</h1>
+
+    <div>
+        <% @result.each do |artistobj| %>
+            <p>
+                Title: <%= artistobj.name %>
+                Genre: <%= artistobj.genre %>
+                <a href="/artists/<%= artistobj.id %>">Artist <%= artistobj.id %> page</a>
+            <p>
+        <% end %>
+    </div>
+
+    <!-- ... -->
+  </body>
+</html>
