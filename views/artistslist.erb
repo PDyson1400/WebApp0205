@@ -6,13 +6,16 @@
     <div>
         <% @result.each do |artistobj| %>
             <p>
-                Title: <%= artistobj.name %>
+                Name: <%= artistobj.name %>
                 Genre: <%= artistobj.genre %>
                 <a href="/artists/<%= artistobj.id %>">Artist <%= artistobj.id %> page</a>
             <p>
         <% end %>
     </div>
-
+    
+    <div>
+        <a href ="/artists/new">Add new artist</a>
+    </div>
     <!-- ... -->
   </body>
 </html>
